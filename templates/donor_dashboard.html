@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/donor_dashboard.css') }}">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2 class="logo">Donor</h2>
+    <ul>
+    <li class="active">
+        <a href="{{ url_for('donor_dashboard') }}">
+            <i class="fa fa-home"></i> Dashboard
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('donor_my_donations') }}">
+    <i class="fa-solid fa-box"></i> My Donations
+</a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('upload_donation') }}">
+            <i class="fa fa-plus"></i> Add Donation
+        </a>
+    </li>
+
+    <li>
+        <a href="#">
+            <i class="fa fa-chart-line"></i> Analytics
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('profile') }}">
+            <i class="fa fa-user"></i> Profile
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('logout') }}">
+            <i class="fa fa-sign-out-alt"></i> Logout
+        </a>
+    </li>
+</ul>
+</div>
+
+<div class="main">
+
+         <!-- Notification Bell -->
+            <div class="notification-wrapper">
+                <a href="#" class="notification-bell" onclick="toggleNotifications(); return false;">
+                    <i class="fa fa-bell fa-2x"></i>
+                    {% set unread_count = 0 %}
+                    {% for n in notifications_list %}
+                        {% if n.is_read == 0 %}
+                            {% set unread_count = unread_count + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if unread_count > 0 %}
+                        <span class="notification-count">{{ unread_count }}</span>
+                    {% endif %}
+                </a>
+
+                <!-- Dropdown -->
+                <div id="notificationDropdown" class="notification-dropdown">
+                    {% if notifications_list %}
+                        {% for n in notifications_list %}
+                            <div class="notification-item {% if n.is_read == 0 %}unread{% endif %}">
+                                {{ n.message }}
+                                <small>{{ n.created_at }}</small>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="notification-item">No notifications yet</div>
+                    {% endif %}
+                </div>
+            </div>
+
+
+    <h1>Welcome</h1>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Donations</h3>
+            <p>{{total}}</p>
+        </div>
+
+        <div class="card">
+            <h3>Active Donations</h3>
+            <p>{{ active}}</p>
+        </div>
+
+        <div class="card">
+            <h3>Completed</h3>
+            <p>{{completed}}</p>
+        </div>
+
+        <div class="card">
+            <h3>Pending</h3>
+            <p>{{pending}}</p>
+        </div>
+    </div>
+
+    <div class="recent-donations">
+    <h3>My Donations</h3>
+
+    {% if donations %}
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Condition</th>
+            <th>City</th>
+            <th>Status</th>
+            <th>Uploaded At</th>
+            <th>Accepted At</th>
+            <th>Completed At</th>
+            <th>Image</th>
+        </tr>
+        {% for d in donations %}
+        <tr>
+            <td>{{ d['title'] }}</td>
+            <td>{{ d['category'] }}</td>
+            <td>{{ d['condition'] }}</td>
+            <td>{{ d['city'] }}</td>
+            <td>
+                {% if d['status'] == 'Pending' %}
+                    <span style="color: grey;">Pending</span>
+                {% elif d['status'] == 'Accepted' %}
+                    <span style="color: blue;">Accepted</span>
+                {% elif d['status'] == 'In Transit' %}
+                    <span style="color: orange;">In Transit</span>
+                {% elif d['status'] == 'Completed' %}
+                    <span style="color: green;">Completed</span>
+                {% elif d['status'] == 'Rejected' %}
+                    <span style="color: red;">Rejected</span>
+                {% endif %}
+            </td>
+            <td>{{ d['uploaded_at'] }}</td>
+            <td>{{ d['accepted_at'] or '-' }}</td>
+            <td>{{ d['completed_at'] or '-' }}</td>
+            <td>
+                {% if d['image'] %}
+                    <img src="{{ url_for('static', filename='uploads/donations/' ~ d['image']) }}" width="50" alt="Donation Image">
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+        </tr>
+
+        <!-- Insert Status Tracking Row -->
+        <tr>
+            <td colspan="9">
+                {% if d.status_logs %}
+                <div class="status-tracking">
+                    <strong>Status Timeline:</strong>
+                    <ul style="list-style:none; padding-left:0;">
+                        {% for log in d.status_logs %}
+                        <li style="margin-bottom:6px;">
+                            <span style="
+                                {% if log.status == 'Pending' %}color: grey;
+                                {% elif log.status == 'Accepted' %}color: blue;
+                                {% elif log.status == 'In Transit' %}color: orange;
+                                {% elif log.status == 'Completed' %}color: green;
+                                {% elif log.status == 'Rejected' %}color: red;
+                                {% endif %}
+                            ">
+                                {{ log.status }}
+                            </span>
+                            {% if log.updated_by_name %}
+                                by {{ log.updated_by_name }}
+                            {% endif %}
+                            at {{ log.updated_at }}
+                            {% if log.proof_file %}
+                                <br>
+                                <img src="{{ url_for('static', filename='uploads/proofs/' ~ log.proof_file) }}" width="50" alt="Proof">
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No donation uploaded yet!</p>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const completed = {{ completed | default(0) | int }};
+    const pending = {{ pending | default(0) | int }};
+    const accepted = {{ accepted | default(0) | int }};
+    const rejected = {{ rejected | default(0) | int }};
+    const in_transit = {{ in_transit | default(0) | int }};
+
+    const categories = {{ categories | default([]) | tojson }};
+    const categoryValues = {{ category_values | default([]) | tojson }};
+
+    const statusCtx = document.getElementById('statusChart');
+    if (statusCtx) {
+        new Chart(statusCtx.getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Completed','Pending','Accepted','Rejected','In Transit'],
+                datasets: [{
+                    data: [completed, pending, accepted, rejected, in_transit],
+                    backgroundColor: ['#4CAF50','#9E9E9E','#2196F3','#F44336','#FF9800']
+                }]
+            }
+        });
+    }
+
+});
+/* ---------- NOTIFICATIONS ---------- */
+
+function toggleNotifications() {
+    const dropdown = document.getElementById("notificationDropdown");
+    dropdown.style.display =
+        dropdown.style.display === "block" ? "none" : "block";
+}
+
+window.onclick = function(event) {
+    if (!event.target.closest(".notification-wrapper")) {
+        const dropdown = document.getElementById("notificationDropdown");
+        if (dropdown) dropdown.style.display = "none";
+    }
+};
+
+function markAsRead(notificationId) {
+    fetch('/mark_notification_read/' + notificationId, { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success){
+            location.reload();
+        }
+    });
+}
+document.addEventListener("DOMContentLoaded", function () {
+
+    const bell = document.querySelector(".notification-bell");
+    const dropdown = document.querySelector(".notification-dropdown");
+
+    bell.addEventListener("click", function (e) {
+        e.preventDefault();
+        dropdown.classList.toggle("show");
+    });
+
+});
+</script>
+</body>
+</html>

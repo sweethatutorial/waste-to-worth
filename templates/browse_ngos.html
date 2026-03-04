@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browse NGOs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/browse_apply.css') }}">
+</head>
+<body>
+<div class="dashboard-container">
+    <div class="sidebar">
+        <h2>Volunteer Panel</h2>
+        <a href="{{ url_for('volunteer_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('browse_ngos') }}" class="active">Browse NGOs</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="main-content">
+       <h1>Available NGOs</h1>
+
+       {% if message %}
+           <p>{{ message }}</p>
+       {% else %}
+           <table>
+               <thead>
+                   <tr>
+                       <th>NGO Name</th>
+                       <th>Email</th>
+                       <th>Location</th>
+                       <th>Action</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for ngo in ngos %}
+                   <tr>
+                       <td>{{ ngo['name'] }}</td>
+                       <td>{{ ngo['email'] }}</td>
+                       <td>{{ ngo['location'] }}</td>
+                       <td><a href="{{ url_for('apply_ngo', ngo_id=ngo['id']) }}">Apply</a></td>
+                   </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       {% endif %}
+    </div>
+</div>
+</body>
+</html>

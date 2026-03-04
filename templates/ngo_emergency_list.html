@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emergency Requests</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:#140a1f;
+color:white;
+}
+
+.title{
+text-align:center;
+margin-top:30px;
+color:#22c55e;
+}
+
+.container{
+width:90%;
+max-width:900px;
+margin:auto;
+margin-top:30px;
+}
+
+.card{
+background:#1c0f2b;
+padding:20px;
+border-radius:14px;
+margin-bottom:20px;
+border:1px solid #2d1a45;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.info{
+margin:8px 0;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.info i{
+color:#22c55e;
+}
+
+.actions{
+margin-top:15px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:10px 16px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.call{ background:#31204d; color:white; }
+.map{ background:#1f2937; color:white; }
+.accept{ background:#22c55e; color:black; }
+
+.btn:hover{ opacity:0.85; }
+
+.empty{
+text-align:center;
+margin-top:40px;
+color:#9ca3af;
+font-size:18px;
+}
+
+.send{
+background:#3b82f6;
+color:white;
+}
+
+.flash{
+background:#22c55e;
+color:#08130f;
+padding:12px;
+margin-bottom:20px;
+border-radius:8px;
+font-weight:600;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<h2 class="title">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    Emergency  Requests
+</h2>
+
+<div class="container">
+
+{% if data %}
+
+    {% for r in data %}
+
+    <div class="card">
+
+        <div class="info">
+        <i class="fa-solid fa-user"></i>
+        <b>{{r[1]}}</b>
+        </div>
+
+        <div class="info">
+        <i class="fa-solid fa-location-dot"></i>
+        {{r[2]}}
+        </div>
+
+        <div class="info">
+        <i class="fa-solid fa-phone"></i>
+        {{r[3]}}
+        </div>
+
+        <div class="info">
+        <i class="fa-solid fa-users"></i>
+        Available for {{r[8]}} members
+        </div>
+
+        <div class="status">
+        <i class="fas fa-circle-check"></i>
+        Status : {{r[4]}}
+        </div>
+
+        {% if r[4] == "Accepted" %}
+        <a class="complete-btn" href="/complete_emergency/{{r[0]}}">
+        <i class="fas fa-flag-checkered"></i>
+        Mark as Completed
+        </a>
+        {% endif %}
+
+        <div class="actions">
+            <a class="btn call" href="tel:{{r[3]}}">
+            <i class="fa-solid fa-phone"></i> Call
+            </a>
+
+            <a class="btn map"
+            href="https://www.google.com/maps/search/{{r[2]}}"
+            target="_blank">
+            <i class="fa-solid fa-map"></i> Map
+            </a>
+
+            {% if r[4] == "Pending" %}
+            <a class="btn accept"
+            href="/accept_emergency/{{r[0]}}">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+            Accept
+            </a>
+            {% endif %}
+
+            {% if r[4] == "Accepted" %}
+            <a class="btn send"
+            href="/send_to_volunteers/{{r[0]}}">
+            <i class="fa-solid fa-bell"></i>
+            Notify Volunteers
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="empty">
+        <i class="fa-regular fa-face-smile"></i>
+        No emergency requests
+    </div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - DonateX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <h2 class="logo">DonateX</h2>
+
+        <ul>
+            <li><a href="/donor_dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            <li><a href="/my_donations"><i class="fas fa-box"></i> My Donations</a></li>
+            <li><a href="/upload_donation"><i class="fas fa-plus-circle"></i> Add Donation</a></li>
+            <li><a href="/analytics"><i class="fas fa-chart-pie"></i> Analytics</a></li>
+            <li class="active"><a href="/profile"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="main-content">
+
+        <h1><i class="fas fa-user-circle"></i> My Profile</h1>
+
+        <div class="profile-card">
+
+            <!-- ===== LEFT SIDE ===== -->
+            <div class="profile-left">
+
+                <div class="image-container">
+
+                    {% if user.profile_image %}
+                        <img src="{{ url_for('static', filename='uploads/profiles/' + user.profile_image) }}" class="profile-img">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/default.png') }}" class="profile-img">
+                    {% endif %}
+
+                </div>
+
+                <h2>{{ user.name }}</h2>
+                <p class="role"><i class="fas fa-hand-holding-heart"></i> Donor</p>
+
+                <a href="{{ url_for('edit_profile') }}" class="edit-btn">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </a>
+
+            </div>
+
+            <!-- ===== RIGHT SIDE ===== -->
+            <div class="profile-right">
+
+                <h3><i class="fas fa-address-card"></i> Contact Info</h3>
+
+                <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{ user.email }}</p>
+                <p><i class="fas fa-phone"></i> <strong>Phone:</strong> {{ user.phone or "Not Provided" }}</p>
+
+                <div class="stats">
+
+                    <div class="stat-box">
+                        <i class="fas fa-box-open"></i>
+                        <h3>{{ total }}</h3>
+                        <p>Total Donations</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>{{ completed }}</h3>
+                        <p>Completed</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <i class="fas fa-clock"></i>
+                        <h3>{{ pending }}</h3>
+                        <p>Pending</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

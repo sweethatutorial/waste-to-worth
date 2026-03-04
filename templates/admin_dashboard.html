@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul>
+        <li><a href="{{ url_for('manage_donors') }}"><i class="fa fa-user"></i> Donors</a></li>
+        <li><a href="{{ url_for('manage_ngos') }}"><i class="fa fa-hand-holding-heart"></i> NGOs</a></li>
+        <li><a href="{{ url_for('manage_volunteers') }}"><i class="fa fa-users"></i> Volunteers</a></li>
+        <li><a href="{{ url_for('manage_donations') }}"><i class="fa fa-gift"></i> Donations</a></li>
+        <li><a href="{{ url_for('admin_logout') }}"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <h1>Admin Dashboard</h1>
+    <div class="cards-container">
+        <!-- Total Donors -->
+        <div class="card">
+            <i class="fa fa-user fa-2x"></i>
+            <h3>Total Donors</h3>
+            <p>{{ total_donors }}</p>
+        </div>
+
+        <!-- Total NGOs -->
+        <div class="card">
+            <i class="fa fa-hand-holding-heart fa-2x"></i>
+            <h3>Total NGOs</h3>
+            <p>{{ total_ngos }}</p>
+        </div>
+
+        <!-- Total Volunteers -->
+        <div class="card">
+            <i class="fa fa-users fa-2x"></i>
+            <h3>Total Volunteers</h3>
+            <p>{{ total_volunteers }}</p>
+        </div>
+
+        <!-- Total Donations -->
+        <div class="card">
+            <i class="fa fa-gift fa-2x"></i>
+            <h3>Total Donations</h3>
+            <p>{{ total_donations }}</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

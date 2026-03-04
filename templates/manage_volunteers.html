@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Volunteers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/manage_volunteer.css') }}">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2 class="logo">Admin</h2>
+    <ul>
+        <li><a href="{{ url_for('admin_dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
+        <li><a href="{{ url_for('manage_donors') }}" class="active"><i class="fa fa-user"></i> Donors</a></li>
+        <li><a href="{{ url_for('manage_ngos') }}"><i class="fa fa-hand-holding-heart"></i> NGOs</a></li>
+        <li><a href="{{ url_for('manage_volunteers') }}"><i class="fa fa-users"></i> Volunteers</a></li>
+        <li><a href="{{ url_for('manage_donations') }}"><i class="fa fa-donate"></i> Donations</a></li>
+        <li><a href="{{ url_for('admin_logout') }}"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+    <div class="page-header">
+        <h1>👥 Manage Volunteers</h1>
+    </div>
+
+    <div class="card">
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for v in volunteers %}
+            <tr>
+                <td>{{ v[0] }}</td>
+                <td>{{ v[1] }}</td>
+                <td>{{ v[2] }}</td>
+                <td>{{ v[3] }}</td>
+                <td>
+                    <a href="/edit_volunteer/{{ v[0] }}" class="edit-btn">Edit</a>
+                    <a href="/delete_volunteer/{{ v[0] }}"
+                       onclick="return confirm('Delete this volunteer?')"
+                       class="delete-btn">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

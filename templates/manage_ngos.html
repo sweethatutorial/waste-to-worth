@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage NGOs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/manage_ngos.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin</h2>
+    <ul>
+        <li><a href="{{ url_for('admin_dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
+        <li><a href="{{ url_for('manage_donors') }}"><i class="fa fa-user"></i> Donors</a></li>
+        <li><a href="{{ url_for('manage_ngos') }}" class="active"><i class="fa fa-hand-holding-heart"></i> NGOs</a></li>
+        <li><a href="{{ url_for('manage_volunteers') }}"><i class="fa fa-users"></i> Volunteers</a></li>
+        <li><a href="{{ url_for('admin_logout') }}"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+
+    <h1><i class="fa fa-hand-holding-heart"></i> Manage NGOs</h1>
+
+    <!-- Filters + Search -->
+    <div class="table-controls">
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterStatus('all')">All</button>
+            <button class="filter-btn" onclick="filterStatus('Pending')">Pending</button>
+            <button class="filter-btn" onclick="filterStatus('Verified')">Verified</button>
+            <button class="filter-btn" onclick="filterStatus('Rejected')">Rejected</button>
+        </div>
+
+        <div class="search-box">
+            <i class="fa fa-search search-icon"></i>
+            <input type="text" id="searchInput"
+                   placeholder="Search NGO..."
+                   onkeyup="searchNGO()">
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Certificate</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="ngoTable">
+                {% for ngo in ngos %}
+                <tr>
+                    <td>{{ ngo.id }}</td>
+                    <td>{{ ngo.name }}</td>
+                    <td>{{ ngo.email }}</td>
+
+                    <td>
+                        {% if ngo.certificate %}
+                            <a href="{{ url_for('static', filename='uploads/certificates/' ~ ngo.certificate) }}" 
+                               target="_blank"
+                               class="btn btn-view">
+                               <i class="fa fa-eye"></i> View
+                            </a>
+                        {% else %}
+                            Not Uploaded
+                        {% endif %}
+                    </td>
+
+                    <td class="status-{{ ngo.status|lower }}">
+                        {{ ngo.status }}
+                    </td>
+
+                    <td>
+                        {% if ngo.status == 'Pending' %}
+                            <a href="{{ url_for('accept_ngo', ngo_id=ngo.id) }}"
+                               class="btn btn-accept"
+                               onclick="return confirm('Have you verified the certificate?');">
+                               <i class="fa fa-check"></i>
+                            </a>
+
+                            <a href="{{ url_for('reject_ngo', ngo_id=ngo.id) }}"
+                               class="btn btn-reject"
+                               onclick="return confirm('Reject this NGO?');">
+                               <i class="fa fa-times"></i>
+                            </a>
+
+                        {% elif ngo.status == 'Verified' %}
+                            <span class="status-verified">
+                                <i class="fa fa-check-circle"></i> Verified
+                            </span>
+
+                        {% else %}
+                            <span class="status-rejected">
+                                <i class="fa fa-times-circle"></i> Rejected
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination"></div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+let rowsPerPage = 5;
+
+function filterStatus(status) {
+    const rows = document.querySelectorAll("#ngoTable tr");
+
+    rows.forEach(row => {
+        const cell = row.querySelector("td:nth-child(5)");
+        const rowStatus = cell ? cell.innerText.trim() : "";
+
+        if (status === "all" || rowStatus === status) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+
+    document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    setupPagination();
+}
+
+function searchNGO() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("#ngoTable tr");
+
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+    });
+
+    setupPagination();
+}
+
+function setupPagination() {
+    const rows = Array.from(document.querySelectorAll("#ngoTable tr"))
+        .filter(row => row.style.display !== "none");
+
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = "";
+
+    const pageCount = Math.ceil(rows.length / rowsPerPage);
+
+    for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = i;
+        btn.classList.add("page-btn");
+        btn.onclick = () => changePage(i);
+        pagination.appendChild(btn);
+    }
+
+    changePage(1);
+}
+
+function changePage(page) {
+    const rows = Array.from(document.querySelectorAll("#ngoTable tr"))
+        .filter(row => row.style.display !== "none");
+
+    rows.forEach((row, index) => {
+        row.style.display =
+            index >= (page - 1) * rowsPerPage &&
+            index < page * rowsPerPage
+                ? ""
+                : "none";
+    });
+}
+
+document.addEventListener("DOMContentLoaded", setupPagination);
+</script>
+
+</body>
+</html>

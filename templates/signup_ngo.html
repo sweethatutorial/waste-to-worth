@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NGO Signup</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup_ngo.css') }}">
+</head>
+<body>
+
+<div class="ngo-container">
+
+    <h2>NGO Registration</h2>
+
+    <form method="post" action="/signup/ngo" enctype="multipart/form-data">
+
+    <div class="input-box">
+        <i class="fa-solid fa-building "></i>
+        <input type="text" name="ngo_name" placeholder="NGO Name" required>
+    </div>
+
+    <div class="input-box">
+        <i class="fa-solid fa-user "></i>
+        <input type="text" name="contact_person" placeholder="Contact Person Name" required>
+    </div>
+
+    <div class="input-box">
+        <i class="fa-solid fa-envelope "></i>
+        <input type="email" name="email" placeholder="Email" required>
+    </div>
+
+    <div class="input-box">
+        <i class="fa-solid fa-phone "></i>
+        <input type="text" name="phone" placeholder="Phone Number" required>
+    </div>
+
+    
+    <div class="input-box">
+        <i class="fa-solid fa-location-dot "></i>
+        <input type="text" name="location" placeholder="NGO Location (City/District)" required>
+    </div>
+
+
+    <div class="file-box">
+        <label>
+            <i class="fa-solid fa-file-certificate "></i>
+            Certificate of Recognition
+        </label>
+        <input type="file" name="ngo_certificate" accept=".pdf,.jpg,.jpeg,.png,.docx " required>
+    </div>
+
+    <div class="input-box">
+        <i class="fa-solid fa-lock "></i>
+        <input type="password" name="password" placeholder="Create Password" required>
+    </div>
+
+    <div class="input-box">
+        <i class="fa-solid fa-lock "></i>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    </div>
+
+    <button type="submit" class="register-btn">Register as NGO</button>
+
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accepted Donations</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/accepted_donation.css') }}">
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Accepted Donations</h2>
+
+{% if donations %}
+{% for d in donations %}
+
+<div class="donation-card">
+
+<div class="card-header">
+<h3>{{ d['title'] }}</h3>
+
+<span class="status status-{{ d['status']|lower }}">
+{{ d['status'] }}
+</span>
+
+</div>
+
+
+<div class="card-body">
+
+<p class="description">{{ d['description'] }}</p>
+
+<div class="time-info">
+
+{% if d['accepted_at'] %}
+<p><strong>Accepted:</strong> {{ d['accepted_at'] }}</p>
+{% endif %}
+
+{% if d['completed_at'] %}
+<p><strong>Completed:</strong> {{ d['completed_at'] }}</p>
+{% endif %}
+
+</div>
+
+</div>
+
+
+<!-- ACTION BUTTONS -->
+{% if d['status'] != 'Completed' %}
+
+<div class="donation-actions">
+
+<form method="GET" action="{{ url_for('update_donation_status', donation_id=d['id']) }}">
+<input type="hidden" name="status" value="Collected">
+<button type="submit" class="btn-collected">
+Mark Collected
+</button>
+</form>
+
+<form method="GET" action="{{ url_for('update_donation_status', donation_id=d['id']) }}">
+<input type="hidden" name="status" value="Completed">
+<button type="submit" class="btn-completed">
+Mark Completed
+</button>
+</form>
+
+</div>
+
+{% else %}
+
+<div class="completed-label">
+✔ Donation Completed
+</div>
+
+
+<!-- PROOF UPLOAD -->
+<form action="{{ url_for('upload_donation', donation_id=d['id']) }}"
+method="POST"
+enctype="multipart/form-data"
+class="proof-upload">
+
+<input type="file" name="proof" accept="image/*,video/*" required>
+
+<button type="submit">
+Upload Delivery Proof
+</button>
+
+</form>
+
+{% endif %}
+
+
+
+<!-- SHOW PROOF -->
+{% if d['proof'] %}
+
+<div class="proof-box">
+
+<p>Delivery Proof</p>
+
+{% if d['proof'].endswith('.mp4') %}
+
+<video width="260" controls>
+<source src="{{ url_for('static', filename='proofs/' + d['proof']) }}">
+</video>
+
+{% else %}
+
+<img src="{{ url_for('static', filename='proofs/' + d['proof']) }}" width="260">
+
+{% endif %}
+
+</div>
+
+{% endif %}
+
+
+</div>
+
+{% endfor %}
+{% else %}
+
+<div class="empty-message">
+No accepted donations yet.
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accepted Emergency Requests</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:#140a1f;
+color:#e5e7eb;
+}
+
+/* PAGE TITLE */
+
+.title{
+text-align:center;
+padding:30px;
+color:#22c55e;
+font-size:28px;
+}
+
+/* CONTAINER */
+
+.container{
+width:90%;
+max-width:900px;
+margin:auto;
+}
+
+/* CARD */
+
+.card{
+background:#1b0f2a;
+padding:25px;
+border-radius:14px;
+margin-bottom:20px;
+border:1px solid #2e1a47;
+box-shadow:0 8px 25px rgba(0,0,0,0.4);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+}
+
+/* TEXT */
+
+.card p{
+margin:8px 0;
+font-size:15px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.card i{
+color:#22c55e;
+}
+
+.btn.send{
+    background-color: #28a745;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: 0.3s;
+    border: none;
+}
+
+.btn.send:hover{
+    background-color: #1e7e34;
+    transform: translateY(-2px);
+}
+
+.btn.send:active{
+    transform: scale(0.96);
+}
+
+/* STATUS */
+
+.status{
+margin-top:15px;
+font-weight:bold;
+color:#22c55e;
+}
+
+/* BUTTON */
+
+.complete-btn{
+display:inline-block;
+margin-top:15px;
+padding:8px 16px;
+background:#22c55e;
+color:#111827;
+text-decoration:none;
+border-radius:6px;
+font-size:14px;
+font-weight:600;
+transition:0.3s;
+}
+
+.complete-btn:hover{
+background:#16a34a;
+transform:translateY(-2px);
+}
+
+/* MAP */
+
+.map{
+margin-top:15px;
+}
+
+.map iframe{
+width:100%;
+height:200px;
+border:none;
+border-radius:10px;
+}
+
+.empty{
+text-align:center;
+padding:40px;
+color:#9ca3af;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2 class="title">
+<i class="fas fa-truck-fast"></i>
+Accepted Emergency Requests
+</h2>
+
+<div class="container">
+
+{% if data %}
+
+{% for r in data %}
+
+<div class="card">
+
+<p>
+<i class="fas fa-user"></i>
+<strong>Name:</strong> {{ r[1] }}
+</p>
+
+<p>
+<i class="fas fa-location-dot"></i>
+<strong>Location:</strong> {{ r[2] }}
+</p>
+
+<p>
+<i class="fas fa-phone"></i>
+<strong>Phone:</strong> {{ r[3] }}
+</p>
+
+<div class="status">
+<i class="fas fa-circle-check"></i>
+Status : {{ r[4] }}
+</div>
+
+<a href="/complete_emergency/{{r[0]}}" class="complete-btn">
+<i class="fas fa-check"></i>
+Delivery received
+</a>
+
+<a href="/send_to_volunteers/{{ r[0]}}"
+class="btn send">
+Notify volunteers
+</a>
+<div class="map">
+
+<iframe
+src="https://maps.google.com/maps?q={{r[2]}}&output=embed">
+</iframe>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty">
+<i class="fas fa-inbox"></i>
+<br><br>
+No Accepted Requests
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

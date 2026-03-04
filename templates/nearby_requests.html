@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nearby Food Requests</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#0f172a;
+color:white;
+}
+
+.title{
+text-align:center;
+margin-top:30px;
+color:#22c55e;
+}
+
+.container{
+width:90%;
+max-width:900px;
+margin:auto;
+margin-top:30px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:14px;
+margin-bottom:20px;
+border:1px solid #334155;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.info{
+margin:8px 0;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.info i{
+color:#22c55e;
+}
+
+.members{
+background:#065f46;
+display:inline-block;
+padding:6px 10px;
+border-radius:6px;
+margin-top:8px;
+font-size:14px;
+}
+
+.actions{
+margin-top:15px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:10px 14px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.call{ background:#334155; color:white; }
+
+.map{ background:#1f2937; color:white; }
+
+.accept{ background:#22c55e; color:black; }
+
+.btn:hover{
+opacity:0.85;
+}
+
+.empty{
+text-align:center;
+margin-top:40px;
+color:#94a3b8;
+font-size:18px;
+}
+
+.nearby{
+color:#facc15;
+font-size:14px;
+margin-top:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 class="title">
+<i class="fa-solid fa-location-dot"></i>
+Nearby Emergency Requests
+</h2>
+
+<div class="container">
+
+{% if data %}
+
+{% for r in data %}
+
+<div class="card">
+
+<div class="info">
+<i class="fa-solid fa-user"></i>
+<b>{{ r.name }}</b>
+</div>
+
+<div class="info">
+<i class="fa-solid fa-location-dot"></i>
+{{ r.location }}
+</div>
+
+<div class="info">
+<i class="fa-solid fa-phone"></i>
+{{ r.phone }}
+</div>
+
+<div class="members">
+🍲 Food for <b>{{ r.members }}</b> people
+</div>
+
+<div class="nearby">
+<i class="fa-solid fa-bolt"></i>
+{{ r.distance }} KM away
+</div>
+
+<div class="actions">
+
+<a class="btn call" href="tel:{{ r.phone }}">
+<i class="fa-solid fa-phone"></i>
+Call
+</a>
+
+<a class="btn map"
+href="https://www.google.com/maps/search/{{ r.location }}"
+target="_blank">
+<i class="fa-solid fa-map"></i>
+View Map
+</a>
+
+<a class="btn accept"
+href="/accept_emergency/{{ r.id }}">
+<i class="fa-solid fa-hand-holdpython ing-heart"></i>
+Accept
+</a>
+
+        {% if r[4] == "Accepted" %}
+            <a class="btn send"
+            href="/send_to_volunteers/{{r[0]}}">
+            <i class="fa-solid fa-bell"></i>
+            Notify Volunteers
+            </a>
+            {% endif %}
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty">
+<i class="fa-regular fa-face-smile"></i>
+No nearby requests available
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

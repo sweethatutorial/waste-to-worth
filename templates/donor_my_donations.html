@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Donations</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/donor_donations.css') }}">
+
+<!-- ICONS -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<div class="container">
+
+<h2><i class="fa-solid fa-hand-holding-heart"></i> My Donations</h2>
+
+{% for d in donations %}
+<div class="donation-card">
+
+<h3>
+<i class="fa-solid fa-box"></i>
+{{ d['title'] }}
+</h3>
+
+<p>
+<i class="fa-solid fa-align-left"></i>
+{{ d['description'] }}
+</p>
+
+<p class="status">
+<i class="fa-solid fa-circle-info"></i>
+Status :
+<span class="status-{{ d['status']|lower }}">
+{{ d['status'] }}
+</span>
+</p>
+
+{% if d['proof'] %}
+
+<h4>
+<i class="fa-solid fa-camera"></i>
+Delivery Proof
+</h4>
+
+<div class="proof-box">
+
+{% if d['proof'].endswith('.mp4') %}
+<video controls>
+<source src="{{ url_for('static', filename='proofs/' + d['proof']) }}">
+</video>
+{% else %}
+<img src="{{ url_for('static', filename='proofs/' + d['proof']) }}">
+{% endif %}
+
+</div>
+
+{% else %}
+
+<p class="no-proof">
+<i class="fa-solid fa-hourglass-half"></i>
+Proof not uploaded yet
+</p>
+
+{% endif %}
+
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

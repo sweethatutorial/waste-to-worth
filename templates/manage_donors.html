@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Donors</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/manage_donors.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar">
+    <h2><i class="fa fa-user-shield"></i> Admin</h2>
+    <ul>
+        <li><a href="{{ url_for('admin_dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
+        <li><a href="{{ url_for('manage_donors') }}" class="active"><i class="fa fa-user"></i> Donors</a></li>
+        <li><a href="{{ url_for('manage_ngos') }}"><i class="fa fa-hand-holding-heart"></i> NGOs</a></li>
+        <li><a href="{{ url_for('manage_volunteers') }}"><i class="fa fa-users"></i> Volunteers</a></li>
+        <li><a href="{{ url_for('manage_donations') }}"><i class="fa fa-donate"></i> Donations</a></li>
+        <li><a href="{{ url_for('admin_logout') }}"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content">
+    <h1><i class="fa fa-user"></i> Manage Donors</h1>
+
+    <div class="table-controls">
+
+    <!-- Filter Buttons -->
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterStatus('all')">All</button>
+        <button class="filter-btn" onclick="filterStatus('Pending')">Pending</button>
+        <button class="filter-btn" onclick="filterStatus('Verified')">Verified</button>
+        <button class="filter-btn" onclick="filterStatus('Rejected')">Rejected</button>
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search donor..." onkeyup="searchDonor()">
+    </div>
+
+</div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th><i class="fa fa-user"></i> Name</th>
+                    <th><i class="fa fa-envelope"></i> Email</th>
+                    <th><i class="fa fa-info-circle"></i> Status</th>
+                    <th><i class="fa fa-cogs"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody id="donorTable">
+                {% for donor in donors %}
+                <tr>
+                    <td>{{ donor.id }}</td>
+                    <td>{{ donor.name }}</td>
+                    <td>{{ donor.email }}</td>
+
+                    <!-- Status Badge -->
+                    <td class="status-{{ donor.status|lower }}">
+                        {{ donor.status }}
+                    </td>
+
+                    <!-- Actions -->
+                    <td>
+                        {% if donor.status == 'Pending' %}
+                            <a href="{{ url_for('accept_donor', donor_id=donor.id) }}" 
+                               class="btn btn-accept">
+                                <i class="fa fa-check"></i> Accept
+                            </a>
+
+                            <a href="{{ url_for('reject_donor', donor_id=donor.id) }}" 
+                               class="btn btn-reject"
+                               onclick="return confirm('Are you sure you want to reject this donor?');">
+                                <i class="fa fa-times"></i> Reject
+                            </a>
+
+                        {% elif donor.status == 'Verified' %}
+                            <span class="status-verified">
+                                <i class="fa fa-check-circle"></i> Verified
+                            </span>
+
+                        {% else %}
+                            <span class="status-rejected">
+                                <i class="fa fa-times-circle"></i> Rejected
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination" id="pagination"></div>
+    </div>
+</div>
+
+<script>
+let currentPage = 1;
+const rowsPerPage = 5;
+
+function filterStatus(status) {
+    const rows = document.querySelectorAll("#donorTable tr");
+
+    rows.forEach(row => {
+        const cell = row.querySelector("td:nth-child(4)");
+        const rowStatus = cell ? cell.innerText.trim() : "";
+
+        if (status === "all" || rowStatus === status) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+
+    document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    setupPagination();
+}
+
+function searchDonor() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("#donorTable tr");
+
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+    });
+
+    setupPagination();
+}
+
+function setupPagination() {
+    const rows = Array.from(document.querySelectorAll("#donorTable tr"))
+        .filter(row => row.style.display !== "none");
+
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = "";
+
+    const pageCount = Math.ceil(rows.length / rowsPerPage);
+
+    for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = i;
+        btn.classList.add("page-btn");
+        btn.onclick = () => changePage(i);
+        pagination.appendChild(btn);
+    }
+
+    changePage(1);
+}
+
+function changePage(page) {
+    currentPage = page;
+    const rows = Array.from(document.querySelectorAll("#donorTable tr"))
+        .filter(row => row.style.display !== "none");
+
+    rows.forEach((row, index) => {
+        row.style.display =
+            index >= (page - 1) * rowsPerPage &&
+            index < page * rowsPerPage
+                ? ""
+                : "none";
+    });
+}
+
+document.addEventListener("DOMContentLoaded", setupPagination);
+</script>
+
+</body>
+</html>

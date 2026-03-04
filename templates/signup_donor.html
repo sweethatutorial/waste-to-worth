@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donor Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup_donor.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="donor-container">
+    <h2>Donor Registration</h2>
+
+    <form method="post">
+
+        <div class="input-box">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" name="name" placeholder="Full Name" required>
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-phone"></i>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" name="password" placeholder="Create Password" required>
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        </div>
+
+        <button type="submit">Register as Donor</button>
+
+    </form>
+</div>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="notifications-container">
+    <h2>Notifications</h2>
+
+    {% if notifications %}
+        {% for n in notifications %}
+        <div class="notification-item {% if n.is_read == 0 %}unread{% endif %}">
+            <div>{{ n.message }}</div>
+            <div class="notification-time">{{ n.created_at }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align:center;">No notifications yet.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
