@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0d001a;  /* Deep dark purple */
+    display: flex;
+    color: #f5e9ff;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #160024, #220033);
+    padding: 25px 15px;
+    box-shadow: 5px 0 20px rgba(0,255,150,0.15);
+}
+
+.logo h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #00ff99;  /* Neon green */
+}
+
+/* Menu */
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #f5e9ff;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li.active a {
+    background: rgba(0,255,150,0.15);
+}
+
+.sidebar ul li i {
+    margin-right: 10px;
+    color: #00ff99;
+}
+
+/* ================= MAIN ================= */
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+/* ================= TOPBAR ================= */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.topbar h2 {
+    color: #00ff99;
+}
+
+/* ================= FORM CARD ================= */
+.form-card {
+    background: #160024;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,255,150,0.2);
+    border: 1px solid rgba(0,255,150,0.15);
+}
+
+/* Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* ================= INPUT GROUP ================= */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #00ff99;
+}
+
+/* Inputs */
+.input-group input,
+.input-group select,
+.input-group textarea {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,255,150,0.2);
+    background: #0d001a;
+    color: #f5e9ff;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #00ff99;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,255,150,0.5);
+}
+
+.input-group textarea {
+    height: 100px;
+    resize: none;
+}
+
+.input-group.full {
+    grid-column: span 2;
+}
+
+/* ================= BUTTON ================= */
+button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #00ff99, #00cc66);
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0d001a;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,255,150,0.4);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-group.full {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        padding: 15px;
+    }
+}

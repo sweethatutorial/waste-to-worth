@@ -1,0 +1,148 @@
+/* ===== BASE ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #140a1f;
+    color: #e5e7eb;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    background: #1b0f2a;
+    padding: 25px 20px;
+    border-right: 1px solid #2e1a47;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #cbd5e1;
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    transition: 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2e1a47;
+    color: #22c55e;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    flex: 1;
+    padding: 45px;
+}
+
+.main-content h1 {
+    margin-bottom: 30px;
+    color: #22c55e;
+}
+
+/* ===== APPLICATION CARD ===== */
+.profile-card {
+    background: #1b0f2a;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid #2e1a47;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* LEFT SIDE */
+.profile-left {
+    width: 30%;
+}
+
+.profile-left h3 {
+    margin-bottom: 10px;
+    color: #22c55e;
+}
+
+.profile-left p {
+    color: #9ca3af;
+}
+
+/* RIGHT SIDE */
+.profile-right {
+    width: 70%;
+}
+
+.profile-right p {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Strong text */
+strong {
+    color: #22c55e;
+}
+
+/* Certificate link */
+.profile-right a {
+    color: #22c55e;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.profile-right a:hover {
+    text-decoration: underline;
+}
+
+/* Empty state */
+.main-content p a {
+    color: #22c55e;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.main-content p a:hover {
+    text-decoration: underline;
+}
+
+/* ===== STATUS COLORS (Optional upgrade) ===== */
+strong:contains("Pending") { color: #facc15; }   /* yellow */
+strong:contains("Approved") { color: #22c55e; }
+strong:contains("Rejected") { color: #ef4444; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .profile-card {
+        flex-direction: column;
+    }
+
+    .profile-left,
+    .profile-right {
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+}

@@ -1,0 +1,104 @@
+/* Background */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1a0033, #2d004d, #003d33);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Glass Container */
+.edit-container {
+    width: 420px;
+    padding: 40px;
+    border-radius: 18px;
+    background: rgba(40, 0, 70, 0.65);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 25px rgba(0, 255, 170, 0.3);
+    animation: slideFade 0.6s ease-in-out;
+    border: 1px solid rgba(0, 255, 170, 0.2);
+}
+
+.edit-container h2 {
+    text-align: center;
+    color: #00ffaa;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    color: #b8ffec;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+/* Input Fields */
+.input-group input {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,170,0.2);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+/* Focus Effect */
+.input-group input:focus {
+    border: 1px solid #00ffaa;
+    box-shadow: 0 0 12px #00ffaa;
+    transform: scale(1.03);
+}
+
+/* Save Button */
+.save-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(90deg, #00ffaa, #00cc88);
+    color: #1a0033;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.save-btn:hover {
+    box-shadow: 0 0 15px #00ffaa;
+    transform: translateY(-3px);
+}
+
+/* Cancel Button */
+.cancel-btn {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #00ffaa;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cancel-btn:hover {
+    text-shadow: 0 0 10px #00ffaa;
+}
+
+/* Animation */
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

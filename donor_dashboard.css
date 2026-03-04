@@ -1,0 +1,292 @@
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #140a1f, #1b0f2a, #140a1f);
+    background-size: 400% 400%;
+    animation: bgMove 12s ease infinite;
+    color: #e5e7eb;
+    display: flex;
+}
+
+/* Background animation */
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background: #1b0f2a;
+    padding: 25px 15px;
+    border-right: 1px solid #2e1a47;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #22c55e;
+}
+
+
+.notification-wrapper{
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+.notification-dropdown{
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 320px;
+    background: #1b0f2a;
+    border: 1px solid #2e1a47;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+.notification-item{
+    padding: 12px;
+    border-bottom: 1px solid #2e1a47;
+    color: #e5e7eb;
+}
+
+.notification-item.unread{
+    background:#241236;
+    font-weight:bold;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: 0.3s;
+}
+
+.sidebar ul li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active {
+    background: #2e1a47;
+    box-shadow: 0 0 15px rgba(34,197,94,0.4);
+}
+
+.sidebar ul li.active a {
+    color: #22c55e;
+}
+
+.chart-box{
+    height: 350px;
+    position: relative;
+}
+
+.chart-box canvas{
+    width: 100%;
+    height: 100%;
+}
+/* =========================
+   MAIN CONTENT
+========================= */
+.main {
+    flex: 1;
+    padding: 35px;
+
+}
+
+/* =========================
+   PAGE TITLE
+========================= */
+.main h1 {
+    margin-bottom: 25px;
+    color: #22c55e;
+}
+
+/* =========================
+   CARDS
+========================= */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #241236;
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid #2e1a47;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    transition: 0.4s ease;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(34,197,94,0.3);
+}
+
+.card h3 {
+    font-size: 15px;
+    color: #9ca3af;
+}
+
+.card p {
+    font-size: 30px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #22c55e;
+}
+
+/* =========================
+   TABLE SECTION
+========================= */
+.recent-donations {
+    background: #241236;
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid #2e1a47;
+    margin-top: 35px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.recent-donations h3 {
+    margin-bottom: 15px;
+    color: #22c55e;
+}
+
+.recent-donations table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recent-donations th {
+    background: #2e1a47;
+    color: #22c55e;
+    padding: 12px;
+    text-align: left;
+}
+
+.recent-donations td {
+    padding: 12px;
+    border-bottom: 1px solid #2e1a47;
+}
+
+.recent-donations tr:hover {
+    background: #2e1a47;
+    transform: scale(1.01);
+}
+
+/* =========================
+   STATUS BADGES
+========================= */
+.status {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.status.pending {
+    background: #9ca3af;
+}
+
+.status.completed {
+    background: #22c55e;
+}
+
+.status.rejected {
+    background: #ef4444;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   NOTIFICATION BELL (Top Right)
+========================= */
+
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+.search-wrapper {
+    position: absolute;
+    top: 22px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+.search-wrapper input[type="text"] {
+    padding: 6px 12px;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    outline: none;
+    background: #241236;
+    color: #e5e7eb;
+    width: 180px;
+}
+
+.search-wrapper button {
+    padding: 6px 12px;
+    border-radius: 0 10px 10px 0;
+    border: none;
+    background: #22c55e;
+    color: #111827;
+    cursor: pointer;
+}
+
+.search-wrapper button:hover {
+    background: #16a34a;
+}
+
+.notification-dropdown{
+    display:none;
+}
+
+.notification-dropdown.show{
+    display:block;
+}

@@ -1,0 +1,182 @@
+/* ===== BASE ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #140a1f;
+    color: #e5e7eb;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    background: #1b0f2a;
+    padding: 25px 20px;
+    border-right: 1px solid #2e1a47;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #cbd5e1;
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    transition: 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2e1a47;
+    color: #22c55e;
+}
+
+/* ===== MAIN ===== */
+.main-content {
+    flex: 1;
+    padding: 45px;
+}
+
+.main-content h1 {
+    margin-bottom: 25px;
+    color: #22c55e;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1b0f2a;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #2e1a47;
+}
+
+thead {
+    background: #241236;
+}
+
+thead th {
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+tbody td {
+    padding: 14px;
+    border-bottom: 1px solid #2e1a47;
+}
+
+tbody tr:hover {
+    background: #2e1a47;
+}
+
+/* Apply button inside table */
+table a {
+    text-decoration: none;
+    background: #22c55e;
+    color: #111827;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+table a:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+}
+
+/* ===== FORM ===== */
+form {
+    margin-top: 20px;
+    background: #1b0f2a;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #2e1a47;
+    max-width: 520px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #22c55e;
+    font-weight: 500;
+}
+
+/* Inputs */
+select,
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #2e1a47;
+    background: #241236;
+    color: #e5e7eb;
+    outline: none;
+}
+
+select:focus,
+textarea:focus,
+input:focus {
+    border-color: #22c55e;
+}
+
+/* Textarea */
+textarea {
+    resize: none;
+}
+
+/* Submit button */
+button {
+    background: #22c55e;
+    border: none;
+    color: #111827;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+}
+
+/* ===== TEXT ===== */
+strong {
+    color: #22c55e;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+}

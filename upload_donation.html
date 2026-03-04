@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Donation</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2 class="logo">DonateX</h2>
+    <ul>
+        <li>
+    <a href="{{ url_for('donor_dashboard') }}">
+        <i class="fa fa-home"></i> Dashboard
+    </a>
+</li>
+
+<li class="active">
+    <a href="{{ url_for('upload_donation') }}">
+        <i class="fa fa-plus"></i> Add Donation
+    </a>
+</li>
+
+<li>
+    <a href="{{ url_for('donor_dashboard') }}">
+        <i class="fa fa-box"></i> My Donations
+    </a>
+</li>
+
+<li>
+    <a href="#">
+        <i class="fa fa-user"></i> Profile
+    </a>
+</li>
+
+<li>
+    <a href="{{ url_for('logout') }}">
+        <i class="fa fa-sign-out-alt"></i> Logout
+    </a>
+</li>
+    </ul>
+</div>
+
+<div class="main">
+
+    <div class="topbar">
+        <h2>Upload Donation</h2>
+    </div>
+
+    <div class="form-card">
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label><i class="fa fa-heading"></i> Title</label>
+                    <input type="text" name="title" required>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa fa-list"></i> Category</label>
+                    <select name="category" required>
+                        <option value="">Select Category</option>
+                        <option>Food</option>
+                        <option>Clothes</option>
+                        <option>Books</option>
+                        <option>Electronics</option>
+                        <option>Others</option>
+                    </select>
+                </div>
+
+                <div class="input-group full">
+                    <label><i class="fa fa-align-left"></i> Description</label>
+                    <textarea name="description" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa fa-tag"></i> Condition</label>
+                    <select name="condition" required>
+                        <option value="">Select</option>
+                        <option>New</option>
+                        <option>Used</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa fa-city"></i> City</label>
+                    <input type="text" name="city" required>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa fa-map-marker-alt"></i> Address</label>
+                    <input type="text" name="address" required>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa fa-map-marker-alt"></i> Landmark</label>
+                    <input type="text" name="landmark">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa fa-phone"></i> Contact</label>
+                    <input type="text" name="contact" placeholder="Enter your phone number" required>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa fa-image"></i> Upload Image</label>
+                    <input type="file" name="donation_image" accept="image/*">
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" name="emergency">
+                        <i class="fa fa-exclamation-triangle"></i> Emergency
+                    </label>
+                </div>
+
+            </div>
+
+            <button type="submit">
+                <i class="fa fa-paper-plane"></i> Submit Donation
+            </button>
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

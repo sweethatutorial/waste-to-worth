@@ -1,0 +1,36 @@
+<h2>Accepted Donations</h2>
+
+{% for d in accepted_donations %}
+<div style="border:1px solid #ccc; padding:15px; margin:10px;">
+    <h3>{{ d['title'] }}</h3>
+
+    <p><b>Status Updates:</b></p>
+    {% for log in d['status_logs'] %}
+        <div style="margin-bottom:5px; padding:5px; background-color: {% if log['status']=='Completed' %}#d4edda{% elif log['status']=='Collected' %}#fff3cd{% else %}#cce5ff{% endif %}">
+            <strong>{{ log['status'] }}</strong> by {{ log['updated_by_name'] }} at {{ log['updated_at'] }}
+            {% if log['proof_file'] %}
+                <div>
+                    {% if log['proof_file'].endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+                        <img src="{{ url_for('static', filename='uploads/donations/' ~ log['proof_file']) }}" width="100">
+                    {% else %}
+                        <video width="200" controls>
+                            <source src="{{ url_for('static', filename='uploads/donations/' ~ log['proof_file']) }}">
+                        </video>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <!-- Form to upload proof / update status -->
+    <form method="post" action="{{ url_for('update_donation_status', donation_id=d['id'], status='Collected') }}" enctype="multipart/form-data">
+        <input type="file" name="proof_file">
+        <button type="submit">Mark Collected</button>
+    </form>
+
+    <form method="post" action="{{ url_for('update_donation_status', donation_id=d['id'], status='Completed') }}" enctype="multipart/form-data">
+        <input type="file" name="proof_file">
+        <button type="submit">Mark Completed</button>
+    </form>
+</div>
+{% endfor %}

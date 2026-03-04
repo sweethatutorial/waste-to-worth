@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Volunteer Signup</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/volunteer_signup.css') }}">
+</head>
+<body>
+
+<div class="signup-container">
+
+    <form method="POST" enctype="multipart/form-data" class="signup-card">
+
+        <h2><i class="fa-solid fa-handshake-angle"></i> Volunteer Registration</h2>
+
+        <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="text" name="name" placeholder="Full Name" required>
+        </div>
+
+        <div class="input-group">
+            <i class="fa fa-envelope"></i>
+            <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+
+        <div class="input-group">
+            <i class="fa fa-phone"></i>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+        </div>
+
+        <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" name="password" placeholder="Create Password" required>
+        </div>
+
+        <div class="input-group">
+            <i class="fa fa-check-circle"></i>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        </div>
+
+        <div class="input-group file-input">
+            <i class="fa fa-file-upload"></i>
+            <input type="file" name="certificate">
+        </div>
+
+        <button type="submit" class="signup-btn">
+            <i class="fa fa-user-plus"></i> Register
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

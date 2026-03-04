@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donation Details</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/donation_detail.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donation Details</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/donation_detail.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+
+
+<h2>{{ donation.title }}</h2>
+
+<hr>
+
+{% if donation.image %}
+    <img src="{{ url_for('static', filename='uploads/donations/' + donation.image) }}"
+         style="max-height:300px; border-radius:10px;">
+{% endif %}
+
+<p><b>Description:</b> {{ donation.description }}</p>
+
+<p><b>Category:</b> {{ donation.category }}</p>
+
+<p><b>Condition:</b> {{ donation.condition }}</p>
+
+<p><b>City:</b> {{ donation.city }}</p>
+
+<p><b>Full Address:</b> {{ donation.address }}</p>
+
+<p><b>Landmark:</b> {{ donation.landmark }}</p>
+
+<p><b>Contact Number:</b> {{ donation.contact }}</p>
+
+<p><b>Emergency:</b> 
+    {% if donation.emergency == 1 %}
+        Yes 🚨
+    {% else %}
+        No
+    {% endif %}
+</p>
+
+<hr>
+
+<p><b>Status:</b> {{ donation.status }}</p>
+
+<p><b>Uploaded At:</b> {{ donation.uploaded_at }}</p>
+
+{% if donation.accepted_at %}
+<p><b>Accepted At:</b> {{ donation.accepted_at }}</p>
+{% endif %}
+
+{% if donation.completed_at %}
+<p><b>Completed At:</b> {{ donation.completed_at }}</p>
+{% endif %}
+</body>
+</html>

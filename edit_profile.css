@@ -1,0 +1,216 @@
+:root {
+    --purple-dark: #140a1f;
+    --purple-card: #1b0f2a;
+    --purple-light: #2e1a47;
+    --green-main: #22c55e;
+    --green-dark: #16a34a;
+    --text-light: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple-light));
+    padding: 40px 0;   /* flex remove பண்ணி padding use பண்ணுறோம் */
+}
+
+/* Container */
+.container {
+    width: 450px;
+    max-width: 92%;
+    background: var(--purple-card);
+    padding: 40px;
+    border-radius: 18px;
+    border: 1px solid var(--purple-light);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    color: var(--text-light);
+    margin: auto;   /* center safe method */
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--green-main);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--green-main);
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--purple-light);
+    background: #241236;
+    color: white;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--green-main);
+}
+
+/* Current image */
+.current-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.current-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--green-main);
+}
+
+/* Button */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--green-main);
+    border: none;
+    border-radius: 12px;
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: var(--green-dark);
+}
+
+/* Back link */
+.back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-link a {
+    color: var(--green-main);
+    text-decoration: none;
+}
+.current-image img {
+    width: 150px !important;
+    height: 150px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block;
+    margin: 0 auto;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 15px auto;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border-radius: 10px;
+    border: 1px solid var(--purple-light);
+    background: #241236;
+    color: white;
+}
+
+.edit-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--green-main);
+}
+
+.profile-image-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.current-image {
+    display: inline-block;
+    position: relative;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.plus-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 30px;
+    color: var(--green-main);
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--purple-card);
+    border: 1px solid var(--purple-light);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    padding: 10px 0;
+    width: 140px;
+    z-index: 10;
+}
+
+.popup.show {
+    display: block;
+}
+
+.popup-option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: var(--green-main);
+    font-weight: 600;
+    border-bottom: 1px solid var(--purple-light);
+    background: transparent;
+    width: 100%;
+}
+
+.popup-option:last-child {
+    border-bottom: none;
+}
+
+.popup-option i {
+    margin-right: 8px;
+}
+
+.popup-option:hover {
+    background: var(--purple-light);
+    color: var(--green-dark);
+}

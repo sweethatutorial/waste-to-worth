@@ -1,0 +1,89 @@
+/* =========================
+BODY
+========================= */
+
+body{
+font-family:'Segoe UI',sans-serif;
+background:#140a1f;
+color:#e5e7eb;
+margin:0;
+padding:40px;
+}
+
+/* =========================
+TITLE
+========================= */
+
+.page-title{
+color:#22c55e;
+margin-bottom:10px;
+}
+
+.page-title i{
+margin-right:8px;
+}
+
+/* =========================
+DIVIDER
+========================= */
+
+.divider{
+border:1px solid #2e1a47;
+margin:20px 0;
+}
+
+/* =========================
+IMAGE
+========================= */
+
+.donation-img{
+max-height:300px;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* =========================
+DETAIL CARD
+========================= */
+
+.details-card{
+background:#241236;
+padding:25px;
+border-radius:15px;
+max-width:700px;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* =========================
+TEXT
+========================= */
+
+.details-card p{
+margin:12px 0;
+font-size:15px;
+}
+
+.details-card i{
+color:#22c55e;
+margin-right:8px;
+}
+
+/* =========================
+EMERGENCY
+========================= */
+
+.emergency{
+color:#f87171;
+font-weight:bold;
+}
+
+/* =========================
+HOVER EFFECT
+========================= */
+
+.details-card:hover{
+box-shadow:0 15px 35px rgba(34,197,94,0.4);
+transform:translateY(-3px);
+transition:0.3s;
+}

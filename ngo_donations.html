@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NGO Donations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/donations.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="page-container">
+
+    <div class="top-bar">
+        <h2 class="page-title"><i class="fa-solid fa-hand-holding-heart"></i> Available Donations</h2>
+
+        <!-- Search Box -->
+        <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="donationSearch" placeholder="Search by title, category, or city...">
+        </div>
+    </div> <!-- THIS WAS MISSING -->
+
+{% if donations|length == 0 %}
+
+<div class="alert">
+    🚫 No Available Donations
+</div>
+
+{% else %}
+
+<div class="donations-container" id="donationsContainer">
+    {% for d in donations %}
+
+    <div class="card">
+        <!-- Date Top Right -->
+        <div class="date">
+            {{ d.formatted_date }}
+        </div>
+
+        <!-- Clickable Title -->
+        <h3 class="card-title">
+            <a href="{{ url_for('donation_detail', id=d.id) }}">
+                <i class="fa-solid fa-box-open"></i>
+                {{ d.title }}
+            </a>
+        </h3>
+
+        <p><i class="fa-solid fa-layer-group"></i><b>Category:</b> {{ d.category }}</p>
+        <p><i class="fa-solid fa-location-dot"></i><b>Location:</b> {{ d.city }}</p>
+        <p><i class="fa-solid fa-hourglass-half"></i><b>Status:</b> {{ d.status }}</p>
+
+        <form method="post" action="{{ url_for('accept_donation', donation_id=d.id) }}">
+            <button type="submit" class="accept-btn"><i class="fa-solid fa-check"></i>Accept</button>
+        </form>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endif %}
+</div>
+
+<!-- Search JS -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById("donationSearch");
+    const donationsContainer = document.getElementById("donationsContainer");
+    const cards = donationsContainer ? donationsContainer.getElementsByClassName("card") : [];
+
+    searchInput.addEventListener("keyup", function() {
+        const filter = searchInput.value.toLowerCase();
+
+        Array.from(cards).forEach(card => {
+            const title = card.querySelector(".card-title").innerText.toLowerCase();
+            const category = card.querySelector("p:nth-of-type(1)").innerText.toLowerCase();
+            const city = card.querySelector("p:nth-of-type(2)").innerText.toLowerCase();
+
+            if (title.includes(filter) || category.includes(filter) || city.includes(filter)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

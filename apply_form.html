@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply to {{ ngo['name'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/browse_apply.css') }}">
+</head>
+<body>
+<div class="dashboard-container">
+    <div class="sidebar">
+        <h2>Volunteer Panel</h2>
+        <a href="{{ url_for('volunteer_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('browse_ngos') }}" class="active">Browse NGOs</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Apply to {{ ngo['name'] }}</h1>
+        <p><strong>Email:</strong> {{ ngo['email'] }}</p>
+        <p><strong>Location:</strong> {{ ngo['location'] }}</p>
+
+        {% if existing_app %}
+            <p>You have already applied to this NGO.</p>
+        {% else %}
+            <form method="POST" enctype="multipart/form-data">
+                <label for="experience">Select Experience:</label>
+                <select name="experience" id="experience" onchange="toggleCertificate()">
+                    <option value="First time">First time</option>
+                    <option value="Experienced">Experienced</option>
+                </select><br><br>
+
+                <label for="message">Message to NGO:</label><br>
+                <textarea name="message" id="message" rows="5" placeholder="Write something..."></textarea><br><br>
+
+                <div id="certificate_div" style="display:none;">
+                    <label for="certificate">Upload Certificate:</label>
+                    <input type="file" name="certificate" id="certificate"><br><br>
+                </div>
+
+                <button type="submit">Submit Application</button>
+            </form>
+
+            <script>
+                function toggleCertificate() {
+                    var experience = document.getElementById("experience").value;
+                    var certDiv = document.getElementById("certificate_div");
+                    if(experience === "Experienced") {
+                        certDiv.style.display = "block";
+                    } else {
+                        certDiv.style.display = "none";
+                    }
+                }
+            </script>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

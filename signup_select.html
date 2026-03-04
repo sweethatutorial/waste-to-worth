@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join As</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/signup_select.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+        <div class="select-container">
+    <h2>Join As</h2>
+
+    <form action="/signup/ngo">
+        <button class="category-btn">
+            <i class="fa-solid fa-building-ngo"></i>
+            NGO
+        </button>
+    </form>
+
+    <form action="/signup/donor">
+        <button class="category-btn">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+            Donor
+        </button>
+    </form>
+
+    <form action="/signup/volunteer">
+        <button class="category-btn">
+            <i class="fa-solid fa-people-group"></i>
+            Volunteer
+        </button>
+    </form>
+</div>
+</body>
+</html>

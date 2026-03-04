@@ -1,0 +1,128 @@
+/* ===== BODY ===== */
+body {
+    background: #0f0c29;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 30px;
+    color: #ffffff;
+}
+
+/* ===== HEADING ===== */
+h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #8affc1;
+}
+
+/* ===== DONATION CARD ===== */
+.donation-card {
+    background: #1c1533;
+    border: 1px solid #2e2550;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(138, 255, 193, 0.1);
+    transition: 0.3s ease;
+}
+
+.donation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(138, 255, 193, 0.3);
+}
+
+/* ===== TITLE ===== */
+.donation-card h3 {
+    margin-top: 0;
+    color: #c084fc;
+}
+
+/* ===== DESCRIPTION ===== */
+.donation-card p {
+    margin: 8px 0;
+    color: #dcd6f7;
+}
+
+/* ===== STATUS COLORS ===== */
+.status-accepted {
+    color: orange;
+    font-weight: bold;
+}
+
+.status-collected {
+    color: #00d4ff;
+    font-weight: bold;
+}
+
+.status-completed {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+/* ===== BUTTON AREA ===== */
+.donation-actions {
+    margin-top: 15px;
+}
+
+.donation-actions form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* ===== BUTTON STYLE ===== */
+.donation-actions button {
+    background: linear-gradient(45deg, #6a0dad, #00ff88);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.donation-actions button:hover {
+    background: linear-gradient(45deg, #00ff88, #6a0dad);
+    transform: scale(1.05);
+}
+
+/* ===== TIMESTAMP ===== */
+.donation-card p strong {
+    color: #8affc1;
+}
+
+/* ===== EMPTY MESSAGE ===== */
+body > p {
+    text-align: center;
+    font-size: 18px;
+    color: #ccc;
+}
+
+.proof-upload{
+margin-top:15px;
+}
+
+.proof-upload input{
+margin-top:8px;
+color:white;
+}
+
+.proof-upload button{
+margin-top:10px;
+background: linear-gradient(45deg,#6a0dad,#00ff88);
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.proof-box{
+margin-top:15px;
+}
+
+.proof-box img,
+.proof-box video{
+border-radius:8px;
+margin-top:10px;
+}

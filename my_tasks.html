@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Accepted Tasks</title>
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/my_tasks.css') }}">
+</head>
+<body>
+
+<h2 class="title">💚 My Emergency Tasks</h2>
+
+<div class="container">
+
+{% if data %}
+    {% for r in data %}
+
+    <div class="card">
+
+        <h3>{{ r['name'] }}</h3>
+
+        <p>📍 {{ r['location'] }}</p>
+        <p>📞 {{ r['phone'] }}</p>
+        <p class="members">🍲 For {{ r['members'] }} people</p>
+
+        <div class="buttons">
+            <a href="tel:{{ r['phone'] }}" class="btn secondary">
+                Call
+            </a>
+
+            <a href="https://www.google.com/maps/search/{{ r['location'] }}"
+               target="_blank"
+               class="btn secondary">
+               Map
+            </a>
+
+            <a href="/mark_delivered/{{ r['id'] }}"
+               class="btn primary">
+               Mark Delivered
+            </a>
+        </div>
+
+    </div>
+
+    {% endfor %}
+{% else %}
+
+<div class="empty">
+    No accepted tasks yet 💜
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

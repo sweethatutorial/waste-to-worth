@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #140a1f;   /* Dark Purple */
+    color: white;
+}
+
+.title {
+    text-align: center;
+    margin-top: 30px;
+    color: #22c55e;  /* Green */
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.card {
+    background: #1c0f2b;  /* Purple card */
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #2d1a45;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.info {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info i {
+    color: #22c55e;
+}
+
+.members {
+    background: #065f46;
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.call {
+    background: #31204d;
+    color: white;
+}
+
+.map {
+    background: #1f2937;
+    color: white;
+}
+
+.accept {
+    background: #22c55e;
+    color: black;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.empty {
+    text-align: center;
+    margin-top: 40px;
+    color: #9ca3af;
+    font-size: 18px;
+}
+
+.flash {
+    background: #22c55e;
+    color: #08130f;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+}

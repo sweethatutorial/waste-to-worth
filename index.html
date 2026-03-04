@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>waste to worth</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-recycle"></i>
+        WASTE<span>TO</span>WORTH
+    </div>
+
+    <div class="login-btn">
+            <a href="{{url_for('login')}}">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+            </a>
+        
+        </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1>
+            Your <span>Small Help</span><br>
+            Can Change <span>Many Lives</span>
+        </h1>
+
+        <p>
+            Connecting Donors, NGOs and Volunteers to reduce waste and help people.
+        </p>
+
+        <!-- ROLE BUTTONS -->
+        <div class="buttons">
+
+            <a href="{{url_for('signup_ngo')}}" class="btn blue">
+                <i class="fa-solid fa-building-circle-check"></i>
+                Join as NGO
+            </a>
+
+            <a href="{{url_for('signup_donor')}}" class="btn orange">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                Join as Donor
+            </a>
+
+            <a href="{{url_for('volunteer_signup')}}" class="btn blue">
+                <i class="fa-solid fa-people-group"></i>
+                Join as Volunteer
+            </a>
+
+        </div>
+
+        <!-- EMERGENCY -->
+        <div class="emergency">
+            <a href="{{ url_for('emergency_food') }}" class="alarm">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Emergency Help
+            </a>
+        </div>
+        
+    </div>
+</section>
+
+</body>
+</html>

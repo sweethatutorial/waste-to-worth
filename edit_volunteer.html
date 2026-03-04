@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Volunteer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_volunteer.css') }}">
+</head>
+<body>
+
+<div class="edit-container">
+    <h2>Edit Volunteer</h2>
+
+    <form method="POST" class="edit-form">
+        <div class="input-group">
+            <label>Name</label>
+            <input type="text" name="name" value="{{ volunteer[1] }}" required>
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" name="email" value="{{ volunteer[2] }}" required>
+        </div>
+
+        <div class="input-group">
+            <label>Phone</label>
+            <input type="text" name="phone" value="{{ volunteer[3] }}" required>
+        </div>
+
+        <button type="submit" class="save-btn">Update Volunteer</button>
+        <a href="/manage_volunteers" class="cancel-btn">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>

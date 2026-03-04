@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Volunteer Applications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ngo_application.css') }}">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>NGO Panel</h2>
+        <a href="{{ url_for('ngo_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('ngo_applications') }}" class="active">Volunteer Applications</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Volunteer Applications</h1>
+
+        <!-- ✅ FLASH MESSAGE SECTION -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">
+                  {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% if applications %}
+
+        <!-- Filter & Search -->
+        <div class="filter-search">
+            <form method="get" action="{{ url_for('ngo_applications') }}">
+                <select name="status">
+                    <option value="All" {% if status_filter=='All' %}selected{% endif %}>All</option>
+                    <option value="Pending" {% if status_filter=='Pending' %}selected{% endif %}>Pending</option>
+                    <option value="Approved" {% if status_filter=='Approved' %}selected{% endif %}>Approved</option>
+                    <option value="Rejected" {% if status_filter=='Rejected' %}selected{% endif %}>Rejected</option>
+                </select>
+
+                <input type="text" 
+                       name="search" 
+                       placeholder="Search by name" 
+                       value="{{ search_query }}">
+
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </div>
+
+        <!-- Applications Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Volunteer Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Experience</th>
+                    <th>Certificate</th>
+                    <th>Status</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td>{{ app['volunteer_name'] }}</td>
+                    <td>{{ app['email'] }}</td>
+                    <td>{{ app['message'] }}</td>
+                    <td>{{ app['experience'] }}</td>
+
+                    <td>
+                        {% if app['certificate'] %}
+                        <a href="{{ url_for('view_certificate', filename=app['certificate']) }}" 
+                           target="_blank" 
+                           class="view-btn">
+                           View
+                        </a>
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+
+                    <!-- Status Update -->
+                    <td>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="app_id" value="{{ app['id'] }}">
+                            <select name="status" onchange="this.form.submit()" class="status-select">
+                                <option value="Pending" {% if app['status']=='Pending' %}selected{% endif %}>Pending</option>
+                                <option value="Approved" {% if app['status']=='Approved' %}selected{% endif %}>Approved</option>
+                                <option value="Rejected" {% if app['status']=='Rejected' %}selected{% endif %}>Rejected</option>
+                            </select>
+                        </form>
+                    </td>
+
+                    <!-- Delete Button -->
+                    <td>
+                        <form method="post"
+                              action="{{ url_for('delete_application', app_id=app['id']) }}"
+                              onsubmit="return confirm('Are you sure you want to delete this application?');">
+
+                            <button type="submit" class="delete-btn">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+            <p>No volunteer applications found.</p>
+        {% endif %}
+
+    </div>
+</div>
+
+</body>
+</html>

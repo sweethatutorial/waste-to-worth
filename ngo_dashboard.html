@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NGO Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ngo_dashboard.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<h2><i class="fas fa-hand-holding-heart"></i> NGO Panel</h2>
+
+<a href="{{ url_for('ngo_dashboard') }}" class="active">
+<i class="fas fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="{{ url_for('ngo_donations') }}">
+<i class="fas fa-box-open"></i>
+Donations
+</a>
+
+<a href="{{ url_for('ngo_accepted_donations') }}">
+<i class="fas fa-check-circle"></i>
+Accepted Donations
+</a>
+
+<a href="{{ url_for('ngo_applications') }}">
+<i class="fas fa-users"></i>
+Volunteer Applications
+</a>
+
+
+<a href="/ngo_emergency_list">
+<i class="fa-solid fa-triangle-exclamation"></i>
+Emergency Requests
+</a>
+
+<a href="{{ url_for('accepted_requests') }}">
+<i class="fas fa-check-circle"></i>
+Accepted Requests
+</a>
+
+<a href="{{ url_for('nearby_requests') }}">
+<i class="fas fa-location-dot"></i>
+Nearby Requests
+</a>
+
+<a href="{{ url_for('logout') }}">
+<i class="fas fa-right-from-bracket"></i>
+Logout
+</a>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+<h1><i class="fas fa-user"></i>Welcome, {{ ngo_name }}
+</h1>
+
+
+
+
+<!-- NOTIFICATION -->
+<div class="notification-wrapper">
+
+<a href="#" class="notification-bell" onclick="toggleNotifications()">
+<i class="fas fa-bell"></i>
+
+{% set unread_count = 0 %}
+{% for n in notifications_list %}
+{% if n.is_read == 0 %}
+{% set unread_count = unread_count + 1 %}
+{% endif %}
+{% endfor %}
+
+{% if unread_count > 0 %}
+<span class="notification-count">{{ unread_count }}</span>
+{% endif %}
+
+</a>
+
+
+<div id="notificationDropdown" class="notification-dropdown">
+
+{% if notifications_list %}
+
+{% for n in notifications_list|sort(attribute='created_at', reverse=True) %}
+
+<div class="notification-item {% if n.is_read == 0 %}unread{% endif %}"
+onclick="markAsRead({{n.notification_id}})">
+
+<strong>{{ n.title }}</strong>
+
+<p>{{ n.message }}</p>
+
+<span class="notification-time">
+<i class="fas fa-clock"></i>
+{{ n.created_at }}
+</span>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="notification-item">
+<i class="fas fa-bell-slash"></i>
+No notifications
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+
+<!-- STATS -->
+<div class="stats">
+
+<div class="stat-box">
+
+<i class="fas fa-user-plus"></i>
+
+<h3>{{ total_applications }}</h3>
+
+<p>Total Applications</p>
+
+<a href="{{ url_for('ngo_applications') }}" class="view-applications">
+View
+</a>
+
+</div>
+
+
+<div class="stat-box">
+
+<i class="fas fa-circle-check"></i>
+
+<h3>{{ approved_count }}</h3>
+
+<p>Approved Volunteers</p>
+
+<a href="{{ url_for('ngo_applications') }}" class="view-applications">
+View
+</a>
+
+</div>
+
+
+<div class="stat-box">
+
+<i class="fas fa-circle-xmark"></i>
+
+<h3>{{ rejected_count }}</h3>
+
+<p>Rejected Volunteers</p>
+
+<a href="{{ url_for('ngo_applications') }}" class="view-applications">
+View
+</a>
+
+</div>
+
+
+<div class="stat-box">
+
+<i class="fas fa-hourglass-half"></i>
+
+<h3>{{ pending_count }}</h3>
+
+<p>Pending Applications</p>
+
+<a href="{{ url_for('ngo_applications') }}" class="view-applications">
+View
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+...
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+<h1><i class="fas fa-user"></i> Welcome, {{ ngo_name }}</h1>
+
+<!-- NOTIFICATION -->
+<div class="notification-wrapper">
+...
+</div>
+
+<!-- STATS -->
+<div class="stats">
+...
+</div>
+
+<!-- Donations Section -->
+<h3 class="donation-title">Donations</h3>
+
+<div class="dashboard-donations">
+
+    <div class="card">
+        <i class="fas fa-box"></i>
+        <h3>Total Donations</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-hourglass-half"></i>
+        <h3>Pending</h3>
+        <p>{{ pending }}</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-check-circle"></i>
+        <h3>Accepted</h3>
+        <p>{{ accepted }}</p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-flag-checkered"></i>
+        <h3>Completed</h3>
+        <p>{{ completed }}</p>
+    </div>
+
+</div>
+
+</div>  <!-- main-content -->
+</div>  <!-- layout -->
+
+<!-- JS -->
+
+<script>
+
+function toggleNotifications() {
+
+const dropdown =
+document.getElementById('notificationDropdown');
+
+dropdown.style.display =
+dropdown.style.display === 'block'
+? 'none'
+: 'block';
+
+}
+
+
+window.onclick = function(event) {
+
+if (
+!event.target.closest('.notification-wrapper')
+) {
+
+document.getElementById(
+'notificationDropdown'
+).style.display = 'none';
+
+}
+
+}
+
+
+function markAsRead(notificationId) {
+
+fetch('/mark_notification_read/' + notificationId,
+{ method: 'POST' })
+
+.then(res => res.json())
+
+.then(data => {
+
+if(data.success){
+
+location.reload();
+
+}
+
+});
+
+}
+
+
+
+function sendLocation(position) {
+
+fetch("/save_location", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+lat: position.coords.latitude,
+lng: position.coords.longitude
+})
+});
+
+}
+
+function getLocation() {
+
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(sendLocation);
+}
+
+}
+
+getLocation();
+
+
+
+</script>
+
+</body>
+</html>

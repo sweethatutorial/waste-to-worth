@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Emergency Request</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:#140a1f;
+color:#e5e7eb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+/* container */
+
+.container{
+width:380px;
+background:#1b0f2a;
+padding:30px;
+border-radius:14px;
+border:1px solid #2e1a47;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* title */
+
+.title{
+text-align:center;
+color:#22c55e;
+margin-bottom:25px;
+}
+
+/* input group */
+
+.input-group{
+margin-bottom:18px;
+}
+
+.input-box{
+position:relative;
+width:100%;
+}
+
+.input-box i{
+position:absolute;
+left:12px;
+top:50%;
+transform:translateY(-50%);
+color:#22c55e;
+}
+
+/* input */
+
+.input-box input{
+width:100%;
+padding:12px 12px 12px 40px;
+border-radius:8px;
+border:1px solid #2e1a47;
+background:#241236;
+color:white;
+font-size:14px;
+box-sizing:border-box;
+}
+
+/* button */
+
+.submit-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:#111827;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.submit-btn:hover{
+background:#16a34a;
+}
+
+.flash{
+background:#16a34a;
+padding:10px;
+border-radius:6px;
+margin-bottom:15px;
+text-align:center;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2 class="title">
+<i class="fa-solid fa-bolt"></i>
+Emergency  Request
+</h2>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form method="POST">
+
+<div class="input-group">
+<div class="input-box">
+<i class="fa-solid fa-user"></i>
+<input type="text" name="name" placeholder="Your Name" required>
+</div>
+</div>
+
+<div class="input-group">
+<div class="input-box">
+<i class="fa-solid fa-location-dot"></i>
+<input type="text" name="location" placeholder="Location" required>
+</div>
+</div>
+
+<div class="input-group">
+<div class="input-box">
+<i class="fa-solid fa-phone"></i>
+<input type="tel" name="phone" placeholder="Phone Number" required>
+</div>
+</div>
+
+<div class="input-group">
+<div class="input-box">
+<i class="fa-solid fa-utensils"></i>
+<input type="number" name="members" placeholder="Food Available for how many members" required>
+</div>
+</div>
+
+<button class="submit-btn">
+<i class="fa-solid fa-paper-plane"></i>
+Submit Request
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

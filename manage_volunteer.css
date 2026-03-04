@@ -1,0 +1,136 @@
+/* BODY */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top left, #1a0033, #0f001a);
+    color: white;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #140021, #1f0033);
+    padding-top: 30px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.logo {
+    text-align: center;
+    color: #00ff99;
+    margin-bottom: 40px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 12px 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px 25px;
+    color: #ccc;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li.active a {
+    background: #00ff99;
+    color: #0f001a;
+    border-radius: 8px;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: 240px;
+    width: 100%;
+    padding: 50px;
+}
+
+/* HEADER */
+.page-header h1 {
+    color: #00ff99;
+    margin-bottom: 30px;
+}
+
+/* CARD */
+.card {
+    background: rgba(40, 0, 70, 0.7);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0, 255, 153, 0.2);
+    backdrop-filter: blur(15px);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    color: #00ff99;
+    padding: 12px;
+    border-bottom: 1px solid #00ff99;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,255,153,0.2);
+}
+
+tr:hover {
+    background: rgba(0,255,153,0.05);
+}
+
+/* BUTTONS */
+.edit-btn {
+    background: #00ff99;
+    color: #0f001a;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 5px;
+    transition: 0.3s;
+}
+
+.edit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #00ff99;
+}
+
+.delete-btn {
+    background: #ff4d4d;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #ff4d4d;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

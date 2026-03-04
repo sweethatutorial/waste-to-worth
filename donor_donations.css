@@ -1,0 +1,114 @@
+/* BODY */
+
+body{
+background: linear-gradient(to right,#0f0c29,#302b63,#24243e);
+font-family: 'Segoe UI', sans-serif;
+margin:0;
+padding:40px;
+color:white;
+}
+
+/* CONTAINER */
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+/* HEADING */
+
+h2{
+text-align:center;
+margin-bottom:40px;
+color:#8affc1;
+font-size:30px;
+}
+
+/* CARD */
+
+.donation-card{
+background:#1c1533;
+border:1px solid #2e2550;
+padding:25px;
+margin-bottom:25px;
+border-radius:14px;
+box-shadow:0 0 15px rgba(138,255,193,0.15);
+transition:0.3s;
+}
+
+.donation-card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 30px rgba(138,255,193,0.4);
+}
+
+/* TITLE */
+
+.donation-card h3{
+margin-top:0;
+color:#c084fc;
+font-size:22px;
+}
+
+/* TEXT */
+
+.donation-card p{
+color:#dcd6f7;
+margin:8px 0;
+}
+
+/* STATUS */
+
+.status span{
+margin-left:5px;
+font-weight:bold;
+}
+
+/* STATUS COLORS */
+
+.status-pending{
+color:orange;
+}
+
+.status-accepted{
+color:#00d4ff;
+}
+
+.status-collected{
+color:#ffcc00;
+}
+
+.status-completed{
+color:#00ff88;
+}
+
+/* PROOF BOX */
+
+.proof-box{
+margin-top:15px;
+}
+
+.proof-box img{
+width:260px;
+border-radius:10px;
+border:2px solid #2e2550;
+}
+
+.proof-box video{
+width:260px;
+border-radius:10px;
+border:2px solid #2e2550;
+}
+
+/* NO PROOF */
+
+.no-proof{
+color:#aaa;
+margin-top:10px;
+}
+
+/* ICON SPACING */
+
+i{
+margin-right:8px;
+color:#8affc1;
+}
